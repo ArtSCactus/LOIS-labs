@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!--
+  Лабораторная работа 1 по дисциплине ЛОИС
+  гр.: 721702
+  студент: Сурунтович Артём Андреевич
+  Проверка на соответствие высказывания ДНФ.
+-->
+<html>
+    <head>
+        <title>Тестирование</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        Формула: <input id="formula" disabled>
+        <input type="button" id="files" value="Начать" onclick="start()"/>
+        <fieldset style="width: fit-content">
+            <legend>Выберите ответ</legend>
+            <div id="answer_input">
+                <p><input name="radio_button" type="radio" value="0"> Да</p>
+                <p><input name="radio_button" type="radio" value="0"> Нет</p>
+            </div>
+            <button id="check" onclick="test()">Проверить</button>
+        </fieldset>
+
+        <p>
+            <button id="next" onclick="next()">Следующая формула</button>
+            <button id="prev" onclick="previous()">Предыдущая формула</button>
+        </p>
+        
+        <p>
+            <button id="test" onclick="goToStandart()">Перейти в обычный режим</button>
+        </p>
+        
+        <div id="answer"></div>
+        
+        <script src="testScripts.js"></script>
+        <script src="DNFValidatorStable.js"></script>
+    </body>
+</html>

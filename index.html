@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<!--
+  Лабораторная работа 1 по дисциплине ЛОИС
+  гр.: 721702
+  студент: Сурунтович Артём Андреевич
+  Проверка на соответствие высказывания ДНФ.
+-->
+<html>
+    <head>
+        <title>DNF</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        Введите формулу: <input id="formula">
+        <p>
+            <button id="run" onclick="checkFormulaWithPrinting()">Проверить</button>
+        </p>
+        <div id="answer"></div>
+        <p>
+            <button id="test" onclick="goToInteractiveTest()">Режим тестирования</button>
+        </p>
+        <script src="DNFValidatorStable.js"></script>
+    </body>
+</html>
