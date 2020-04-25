@@ -80,9 +80,6 @@ function next() {
 
 function previous() {
     try {
-        if (testMas === undefined) {
-            throw "Пожалуйста, выберите файл теста!";
-        }
 
         if (testNum - 1 < 0) {
             throw "Это первая формула теста!";
