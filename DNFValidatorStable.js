@@ -12,29 +12,31 @@ function goToInteractiveTest() {
 function checkFormulaWithPrinting() {
     var inputFormula = document.getElementById("formula").value;
     var text;
-
-    if (!isBracketsBalanced(inputFormula)) {
-        text = "Неверно расставлены скобки!";
-    } else {
-        var answer = validate(inputFormula);
-
-        if (answer) {
-            text = "Данная формула является ДНФ!";
+    if (inputFormula === '' | inputFormula === null){
+        text = "Вы не ввели формулу."
+    }else{
+        if (!isBracketsBalanced(inputFormula)) {
+            text = "Неверно расставлены скобки!";
         } else {
-            text = "Данная формула не является ДНФ!";
+            var answer = validate(inputFormula);
+
+            if (answer) {
+                text = "Данная формула является ДНФ!";
+            } else {
+                text = "Данная формула не является ДНФ!";
+            }
         }
     }
-
     document.getElementById("answer").innerHTML = "Ответ: " + text;
 }
 
 function validate(expression) {
     let replacementSymbol = 'A';
-    let simplified_exp =/\(?[A-Z]\)?/g;
+   // let simplified_exp =/[A-Z]/g;
     let negative = /\(![A-Z]\)/g;
     let modifiable_exp = expression;
     let simple_konj = /\([A-Z]&[A-Z](&[A-Z])*\)/;
-    let disjunc = /\(?[A-Z]\|[A-Z](\|[A-Z])*\)?/;
+    let disjunc = /[A-Z]\|[A-Z](\|[A-Z])*/;
     if (modifiable_exp.match(/\(!\([A-Z](\&[A-Z])+\)\)/) !== null) {
         return false;
     }
