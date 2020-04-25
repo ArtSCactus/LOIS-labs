@@ -4,11 +4,11 @@ var testMas;
 var testNum;
 var tests=['A|D',
     '(A&B)',
-    '(A|(B|C))',
-    '(A|A)',
+    '(D&!(A&C))',
+    '(0|1)',
     '(A|B|C)',
     '(A&B)|((B&C)|(C&D))',
-    '(A|(C|(D&A)|(C&D)))',
+    '(E|(D&(A|0)))',
     '(A|(C|((D&A)|(C&D))))',
     'A'];
 function start(){
@@ -33,9 +33,6 @@ function test() {
     var result;
     
     try {
-        if (testMas === undefined) {
-            throw "Пожалуйста, выберите файл теста!";
-        }
     
         for (var i = 0; i < radBtns.length; i++) {
             if (radBtns[i].checked) {
@@ -49,7 +46,7 @@ function test() {
         
         var inputFormula = document.getElementById("formula").value;
         
-        correctAnswer = checkFormula(inputFormula);
+        correctAnswer = validate(inputFormula);
         checkedAnswer = (checkedNum === 0);
         
         if (checkedAnswer === correctAnswer) {

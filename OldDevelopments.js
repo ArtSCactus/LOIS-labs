@@ -194,22 +194,6 @@ function isEmpty(str) {
     return str.trim() === '';
 }
 
-function isBracketsBalanced(str) {
-    var closedBrackets = 0;
-    var openBrackets = 0;
-    for (var index = 0; index < str.length; index++) {
-        var char = str.charAt(index);
-        if (char === '(') {
-            openBrackets++;
-        }
-        if (char === ')') {
-            closedBrackets++;
-        }
-
-    }
-    return openBrackets === closedBrackets;
-}
-
 function isSimpleDnf(expression) {
     var regexp = /(\|?\((&?[A-Z]&?)+\)\|\((&?[A-Z]&?)+\)?)+/;
     return regexp.test(expression);

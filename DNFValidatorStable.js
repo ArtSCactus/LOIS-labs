@@ -16,7 +16,7 @@ function checkFormulaWithPrinting() {
     if (!isBracketsBalanced(inputFormula)) {
         text = "Неверно расставлены скобки!";
     } else {
-        var answer = valid(inputFormula);
+        var answer = validate(inputFormula);
 
         if (answer) {
             text = "Данная формула является ДНФ!";
@@ -28,7 +28,7 @@ function checkFormulaWithPrinting() {
     document.getElementById("answer").innerHTML = "Ответ: " + text;
 }
 
-function valid(expression) {
+function validate(expression) {
     let replacementSymbol = 'A';
     let simplified_exp =/\(?[A-Z]\)?/g;
     let negative = /\(![A-Z]\)/g;
@@ -52,4 +52,20 @@ function valid(expression) {
     } else {
         return false;
     }
+}
+
+function isBracketsBalanced(str) {
+    var closedBrackets = 0;
+    var openBrackets = 0;
+    for (var index = 0; index < str.length; index++) {
+        var char = str.charAt(index);
+        if (char === '(') {
+            openBrackets++;
+        }
+        if (char === ')') {
+            closedBrackets++;
+        }
+
+    }
+    return openBrackets === closedBrackets;
 }
