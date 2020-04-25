@@ -32,7 +32,6 @@ function checkFormulaWithPrinting() {
 
 function validate(expression) {
     let replacementSymbol = 'A';
-   // let simplified_exp =/[A-Z]/g;
     let negative = /\(![A-Z]\)/g;
     let modifiable_exp = expression;
     let simple_konj = /\([A-Z]&[A-Z](&[A-Z])*\)/;
