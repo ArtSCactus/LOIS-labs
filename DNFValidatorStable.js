@@ -12,9 +12,9 @@ function goToInteractiveTest() {
 function checkFormulaWithPrinting() {
     var inputFormula = document.getElementById("formula").value;
     var text;
-    if (inputFormula === '' | inputFormula === null){
+    if (inputFormula === '' | inputFormula === null) {
         text = "Вы не ввели формулу."
-    }else{
+    } else {
         if (!isBracketsBalanced(inputFormula)) {
             text = "Неверно расставлены скобки!";
         } else {
@@ -36,9 +36,16 @@ function validate(expression) {
     let modifiable_exp = expression;
     let simple_konj = /\([A-Z]&[A-Z](&[A-Z])*\)/;
     let disjunc = /[A-Z]\|[A-Z](\|[A-Z])*/;
+    let recursionFormula = /^\((([A-Z]|\(![A-Z]\))|\((([A-Z]|\(![A-Z]\))|\(.{3,}\))\&(([A-Z]|\(![A-Z]\))|\(.{3,}\))\))\|(([A-Z]|\(![A-Z]\))|\((([A-Z]|\(![A-Z]\))|\(.{3,}\))\&(([A-Z]|\(![A-Z]\))|\(.{3,}\))\))\)$/;
+
     if (modifiable_exp.match(/\(!\([A-Z](\&[A-Z])+\)\)/) !== null) {
         return false;
     }
+
+    if (modifiable_exp.match(recursionFormula) !== null) {
+        modifiable_exp = modifiable_exp.slice(1, -1)
+    }
+
     while (modifiable_exp.match(negative) !== null) {
         modifiable_exp = modifiable_exp.replace(negative, replacementSymbol);
     }
@@ -66,7 +73,6 @@ function isBracketsBalanced(str) {
         if (char === ')') {
             closedBrackets++;
         }
-
     }
     return openBrackets === closedBrackets;
 }
