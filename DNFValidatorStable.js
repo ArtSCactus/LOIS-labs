@@ -36,7 +36,7 @@ function validate(expression) {
     let negative = /\(![A-Z]\)/g;
     let modifiable_exp = expression;
     let simple_konj = /\([A-Z]&[A-Z](&[A-Z])*\)/;
-    let disjunc = /\([A-Z]\|[A-Z]\)|[A-Z]\|[A-Z]/;
+    let disjunc = /([A-Z]|\([A-Z]\))\|([A-Z]|\([A-Z]\))(\|([A-Z]|\([A-Z]\)))*/;
     let recursionFormula = /^\((([A-Z]|\(![A-Z]\))|\((([A-Z]|\(![A-Z]\))|\(.{3,}\))(\&|\|)(([A-Z]|\(![A-Z]\))|\(.{3,}\))\))\|(([A-Z]|\(![A-Z]\))|\((([A-Z]|\(![A-Z]\))|\(.{3,}\))(\&|\|)(([A-Z]|\(![A-Z]\))|\(.{3,}\))\))\)$/;
 
     if (modifiable_exp.match(/\(!\([A-Z](\&[A-Z])+\)\)/) !== null || modifiable_exp.match(grammar) === null) {
