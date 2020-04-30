@@ -32,7 +32,7 @@ function checkFormulaWithPrinting() {
 
 function validate(expression) {
     let replacementSymbol = 'A';
-    let grammar = /^([A-Z]|\(([A-Z]|\(![A-Z]\)|\(.{3,}\))(\&|\|)([A-Z]|\(![A-Z]\)|\(.{3,}\))\))$/;
+    let grammar = /^([A-Z]|\(![A-Z]\)|\(([A-Z]|\(![A-Z]\)|\(.{3,}\))(\&|\|)([A-Z]|\(![A-Z]\)|\(.{3,}\))\))$/;
     let negative = /\(![A-Z]\)/g;
     let modifiable_exp = expression;
     let simple_konj = /\([A-Z]&[A-Z](&[A-Z])*\)/;
@@ -81,6 +81,8 @@ function isBracketsBalanced(str) {
 function runTests() {
     let testExp = [
         '(A|B)',
+        '(!(A&B))',
+        'A&B',
         'A|B',
         '(A|B|C)',
         '(((V|N)|(H|J))|((K|F)|(G|M)))',
@@ -96,7 +98,8 @@ function runTests() {
         '(A&B)|((B&C)|(C&D))',
         '(E|(D&(A|0)))',
         '(A|(C|((D&A)|(C&D))))',
-        'A']
+        'A',
+        '(!A)']
     for (let i = 0; i < testExp.length; i++) {
         console.log(testExp[i] + '->' + validate(testExp[i]));
     }
