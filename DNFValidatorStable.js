@@ -77,3 +77,27 @@ function isBracketsBalanced(str) {
     }
     return openBrackets === closedBrackets;
 }
+
+function runTests() {
+    let testExp = [
+        '(A|B)',
+        'A|B',
+        '(A|B|C)',
+        '(((V|N)|(H|J))|((K|F)|(G|M)))',
+        '(((G&B)&(H&U))|((H&(M&F))|L))',
+        '((G&B&(H&U))|((H&(M&F))|L))',
+        '((A&B)|(C&D))',
+        '(((!A)&(!B))|((!C)|(!D)))',
+        '((A&(K&D))|(A&(H&F)))',
+        '((A|D)|(A|C))',
+        '(A&B)',
+        '(D&!(A&C))',
+        '(0|1)',
+        '(A&B)|((B&C)|(C&D))',
+        '(E|(D&(A|0)))',
+        '(A|(C|((D&A)|(C&D))))',
+        'A']
+    for (let i = 0; i < testExp.length; i++) {
+        console.log(testExp[i] + '->' + validate(testExp[i]));
+    }
+}
