@@ -331,11 +331,6 @@ function test(formula) {
         main(newStr);
     } else {
         messageField.innerHTML += 'Ошибка, выражение <strong>' + formula + '</strong> не является формулой логики высказываний.';
-        /*        if(elements[0].checked)
-                    document.getElementById('correct').innerHTML += 'Неправильно. Строка <strong>'+ myString  +'</strong> не является формулой логики высказываний.';
-
-                if(elements[1].checked)
-                    document.getElementById('correct').innerHTML += 'Правильно. Строка <strong>'+ myString  +'</strong> не является формулой логики высказываний.';*/
     }
 
     deleteAll();
