@@ -4,25 +4,51 @@
   гр.: 721702
   студент: Сурунтович Артём Андреевич
   Проверка на соответствие высказывания ДНФ.
+
+  Лабораторная работа 2 по дисциплине ЛОИС
+  гр.: 721702
+  студент: Сурунтович Артём Андреевич
+  Вычисление значения формулы по частично заданной интерпретации формулы .
 -->
 <html>
     <head>
-        <title>DNF</title>
+        <title>DNF and formula result</title>
         <script src="DNFValidatorStable.js"></script>
+        <link rel="stylesheet" href="lab2.css">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
+    Проверка формулы на ДНФ<br>
         Введите формулу: <input id="formula">
         <p>
             <button id="run" onclick="checkFormulaWithPrinting()">Проверить</button>
         </p>
         <div id="answer"></div>
         <p>
-            <button id="test" onclick="goToInteractiveTest()">Режим тестирования</button>
+            <button id="dnf-test" onclick="goToDNFTest()">Режим тестирования по ДНФ</button>
         </p>
+    <p>
+        <button id="formula-result-test" onclick="goToFormulaResultTest()">Режим тестирования по значению формулы</button>
+    </p>
+
         <p>
             <button id="testButton" onclick="runTests()">Запуск тестов</button>
         </p>
+        <div id="mainContent">
+            <p id="helloText">Вычисление значения логической формулы</p>
+            <input id="logFormula" class="input"><br>
+            <button id="calculate" class="buttonStyle" onclick="calculate()">вычислить</button>
+            <button id="clear" class="buttonStyle" onclick="clearTable()">очистить</button><br>
+            <p id="isForm"></p>
+            <p id="error-message"></p>
+            <table 	id="table">
+                <tbody>
+                </tbody>
+            </table>
+
+        </div>
     </body>
+    <!--late loading scripts here-->
+    <script src="ExpSolver.js"></script>
 </html>

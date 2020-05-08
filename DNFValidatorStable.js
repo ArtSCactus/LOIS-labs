@@ -5,8 +5,8 @@
  * Проверка на соответствие высказывания ДНФ.
  * 
 */
-function goToInteractiveTest() {
-    document.location.href = "test.html";
+function goToDNFTest() {
+    document.location.href = "DNFTest.html";
 }
 
 function checkFormulaWithPrinting() {
