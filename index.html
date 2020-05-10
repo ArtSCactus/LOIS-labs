@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <!--
   Лабораторная работа 1 по дисциплине ЛОИС
+  Вариант F: проверка на ДНФ
   гр.: 721702
   студент: Сурунтович Артём Андреевич
   Проверка на соответствие высказывания ДНФ.
 
   Лабораторная работа 2 по дисциплине ЛОИС
+  Вариант 1: 1. Вычислить возможные значения формулы при частично заданной интерпретации формулы
+  (частично заданных значениях пропозициональных переменных). Результат оформить в виде таблицы.
   гр.: 721702
   студент: Сурунтович Артём Андреевич
   Вычисление значения формулы по частично заданной интерпретации формулы .
 -->
 <html>
     <head>
-        <title>DNF and formula result</title>
+        <title>Lab 1,2</title>
         <script src="DNFValidatorStable.js"></script>
         <link rel="stylesheet" href="lab2.css">
         <meta charset="UTF-8">
@@ -36,17 +39,30 @@
             <button id="testButton" onclick="runTests()">Запуск тестов</button>
         </p>
         <div id="mainContent">
-            <p id="helloText">Вычисление значения логической формулы</p>
+            <p id="helloText">Вычисление возможных значений логической формулы</p>
             <input id="logFormula" class="input"><br>
-            <button id="calculate" class="buttonStyle" onclick="calculate()">вычислить</button>
+            <button id="calculate" class="buttonStyle" onclick="calculate()">Вычислить для общего случая</button>
+            <button id="get-replacement-fields-btn" onclick="generateReplacementFields()">Ввести значения вручную</button>
             <button id="clear" class="buttonStyle" onclick="clearTable()">очистить</button><br>
             <p id="isForm"></p>
             <p id="error-message"></p>
-            <table 	id="table">
+            <div id="input-fields">
+
+            </div>
+            <table id="lab-task-table">
+                <caption>
+                    Таблица истинности для заданных параметров
+                </caption>
                 <tbody>
                 </tbody>
             </table>
-
+            <table 	id="table">
+                <caption>
+                    Таблица истинности для всех комбинаций
+                </caption>
+                <tbody>
+                </tbody>
+            </table>
         </div>
     </body>
     <!--late loading scripts here-->

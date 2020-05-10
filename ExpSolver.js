@@ -22,6 +22,10 @@ function goToFormulaResultTest() {
 
 function clearTable() {
     table.innerHTML = '';
+    table.createCaption().innerHTML = 'Таблица истинности для всех комбинаций';
+    let customParamTable = document.getElementById("lab-task-table");
+    customParamTable.innerHTML = '';
+    customParamTable.createCaption().innerHTML='Таблица истинности для заданных параметров';
 }
 
 function calculate() {
@@ -324,6 +328,7 @@ function test(formula) {
     }
 
     table.innerHTML = '';
+    table.createCaption().innerHTML = 'Таблица истинности для всех комбинаций';
 
     if (str.length == 1 && str.match(/[01]|[A-Z]/g)) {
         var replaceStr = formula.replace(/(\-\>)/g, ">");
@@ -334,4 +339,154 @@ function test(formula) {
     }
 
     deleteAll();
+}
+
+function generateReplacementFields() {
+    document.getElementById("input-fields").innerHTML = "";
+    let expression = document.getElementById("logFormula").value;
+    if (expression === null | expression.length === 0) {
+        return;
+    }
+    let atomsArray = new Array();
+    let symbolRegExp = /[A-Z]/;
+    for (index = 0; index < expression.length; index++) {
+        let char = expression.charAt(index);
+        if (expression.charAt(index).match(symbolRegExp) !== null & !atomsArray.includes(expression.charAt(index))) {
+            atomsArray.push(expression.charAt(index));
+        }
+    }
+    let inputBlock = document.getElementById("input-fields");
+    for (index = 0; index < atomsArray.length; index++) {
+        let inputFieldLabel = document.createElement("label");
+        inputFieldLabel.textContent = atomsArray[index] + ": ";
+        let selectField = document.createElement("select");
+        selectField.setAttribute("id", atomsArray[index])
+        selectField.setAttribute("class", "formula-atoms-values")
+        let trueOption = document.createElement("option");
+        let falseOption = document.createElement("option");
+        let undefinedOption = document.createElement("option");
+        undefinedOption.textContent = "не выбрано";
+        trueOption.textContent = "1";
+        falseOption.textContent = "0";
+        selectField.append(trueOption, falseOption, undefinedOption);
+        inputFieldLabel.append(selectField);
+        inputBlock.append(inputFieldLabel);
+        inputBlock.append(document.createElement("br"));
+    }
+    let launchButton = document.createElement("button");
+    launchButton.setAttribute("onclick", "generateTruthTableWithCustomParams()");
+    launchButton.textContent = "Вычислить с заданными параметрами";
+    inputBlock.append(launchButton)
+}
+
+function generateTruthTableWithCustomParams() {
+    let formula = document.getElementById("logFormula").value;
+    var str = formula;
+    var unary_formula = /\(\!([01]|[A-Z])\)/g;
+    var binary_formula = /\(([01]|[A-Z])([\&\|\~]|(\-\>))([01]|[A-Z])\)/g;
+    var messageField = document.getElementById("error-message");
+    messageField.innerHTML = "";
+    while (str.match(unary_formula) || str.match(binary_formula)) {
+
+        if (str.match(unary_formula))
+            str = str.replace(unary_formula, "1");
+        else
+            str = str.replace(binary_formula, "1");
+    }
+    let map = collectInputValuesAsMap();
+    let table = document.getElementById("lab-task-table");
+    for (const [key, value] of map.entries()) {
+        formula = formula.split(key).join(value);
+    }
+    if (str.length === 1 && str.match(/[01]|[A-Z]/g)) {
+        var replaceStr = formula.replace(/(\-\>)/g, ">");
+        var newStr = replaceStr.split('');
+        mainWithParams(formula, newStr, table);
+    } else {
+        messageField.innerHTML += 'Ошибка, выражение <strong>' + formula + '</strong> не является формулой логики высказываний.';
+    }
+
+    deleteAll();
+}
+
+function collectInputValuesAsMap() {
+    let selectFields = document.getElementsByClassName("formula-atoms-values");
+    let map = new Map();
+    for (index = 0; index < selectFields.length; index++) {
+        let optionValue = selectFields[index].options[selectFields[index].selectedIndex].text;
+        if (optionValue !== "не выбрано") {
+            map.set(selectFields[index].getAttribute("id"), selectFields[index].value);
+        }
+    }
+    return map;
+}
+
+function mainWithParams(parametrizedFormula, newStr, table) {
+    buildStackOfElements(newStr);
+    var commonStack = [];
+
+    for (i = 0; i < Math.pow(2, array.length); i++) {
+        var stackValue = [];
+        commonStack.push(doBinary(i, array.length, stackValue));
+    }
+    commonStack.reverse();
+
+    for (k = 0; k < Math.pow(2, array.length); k++) {
+
+        var oneSetOfValues = commonStack.pop();
+
+        for (i = 0; i < array.length; i++) {
+
+            var oneValue = oneSetOfValues.pop().toString();
+            stackFormationTable.push(oneValue);
+
+            for (j = stackOfElements.length - 1; j >= 0; j--) {
+                if (array[i] == stackOfElements[j]) {
+                    stackOfElements[j] = oneValue;
+                }
+            }
+        }
+        stackFormationTable.push(showAnswer());
+        buildStackOfElements(newStr);
+    }
+
+    stackFormationTable.reverse();
+    fillTableForParametrizedFormula(parametrizedFormula, table, Math.pow(2, array.length), array.length);
+}
+
+function fillTableForParametrizedFormula(formula, table, numRows, numCol) {
+    table.innerHTML = '';
+    table.createCaption().innerHTML='Таблица истинности для заданных параметров';
+    let firstRow = [];
+    firstRow.push(formula);
+
+    for (i = array.length - 1; i >= 0; i--) {
+        firstRow.push(array[i]);
+    }
+
+    for (var i = 0; i <= numRows; i++) {
+
+        var newRow = table.insertRow(i);
+
+        for (var j = 0; j <= numCol; j++) {
+
+            var newCell = newRow.insertCell(j);
+
+            if (i == 0 && j >= 0) {
+                if (j == numCol) {
+                    newCell.className = 'yellow';
+                }
+                newCell.innerHTML = firstRow.pop();
+                newCell.width = 50;
+            } else {
+                var number = stackFormationTable.pop();
+                newCell.innerHTML = number;
+                if (j == numCol) {
+                    newCell.className = 'yellow';
+                    stackResult.push(number);
+                }
+            }
+        }
+    }
+    document.body.appendChild(table);
 }
